@@ -2,64 +2,67 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 
-public class PlayerMovement : MonoBehaviour {
+public class PlayerMovement : MonoBehaviour
+{
 
 	private Rigidbody2D rigidBody;
 
-		public float maxSpeed = 10f;
-		public float jumpForce = 700f;
-		bool facingRight = true;
-		bool grounded = false;
-		public Transform groundCheck;
-		public float groundRadius = 0.2f;
-		public LayerMask whatIsGround;
+	public float maxSpeed = 3f;
+	public float jumpForce = 300f;
+	bool facingRight = true;
+	public float groundRadius = 0.2f;
+	public float groundDistance = 0.5f;
 
-		public float move;
+	private float height;
 
-	void Start() {
+	public float move;
+
+	void Start ()
+	{
 		rigidBody = GetComponent<Rigidbody2D> ();
+
+		Vector3 size = GetComponent<Renderer> ().bounds.size;
+		Vector3 scale = transform.localScale;
+		height = size.y * scale.y;
 	}
 
-		void FixedUpdate () {
+	void Update ()
+	{
+		Vector2 position = new Vector2 (transform.position.x, transform.position.y - height / 2 - 1f);
 
+		RaycastHit2D grounded = Physics2D.CircleCast (position, groundRadius, Vector2.down, groundDistance);
 
-			grounded = Physics2D.OverlapCircle (groundCheck.position, groundRadius, whatIsGround);
+		move = Input.GetAxis ("Horizontal");
 
-			move = Input.GetAxis ("Horizontal");
-
+		if (grounded && (Input.GetKeyDown (KeyCode.W) || Input.GetKeyDown (KeyCode.UpArrow))) {
+			rigidBody.AddForce (new Vector2 (0f, jumpForce));
+			Debug.Log ("X: " + position.x + " Y: " + position.y + " distance: " + grounded.distance + " name: " + grounded.collider.name + " height: " + height);
 		}
-
-		void Update(){
-			if (grounded && (Input.GetKeyDown (KeyCode.W)||Input.GetKeyDown (KeyCode.UpArrow))) {
-
-			rigidBody.AddForce (new Vector2(0f, jumpForce));
-			}
 
 		rigidBody.velocity = new Vector2 (move * maxSpeed, rigidBody.velocity.y);
 
-			if (move > 0 && !facingRight)
-				Flip ();
-			else if (move < 0 && facingRight)
-				Flip ();
+		if (move > 0 && !facingRight)
+			Flip ();
+		else if (move < 0 && facingRight)
+			Flip ();
 
 
-			if (Input.GetKey(KeyCode.Escape))
-			{
-				Application.Quit();
-			}
-
-			if (Input.GetKey(KeyCode.R))
-			{
-			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-			}
-
-
+		if (Input.GetKey (KeyCode.Escape)) {
+			Application.Quit ();
 		}
 
-		void Flip(){
-			facingRight = !facingRight;
-			Vector3 theScale = transform.localScale;
-			theScale.x *= -1;
-			transform.localScale = theScale;
-		}              
+		if (Input.GetKey (KeyCode.R)) {
+			SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
+		}
+
+
+	}
+
+	void Flip ()
+	{
+		facingRight = !facingRight;
+		Vector3 theScale = transform.localScale;
+		theScale.x *= -1;
+		transform.localScale = theScale;
+	}
 }
