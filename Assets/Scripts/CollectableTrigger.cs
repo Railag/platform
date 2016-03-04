@@ -2,13 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Collectable : MonoBehaviour {
+public class CollectableTrigger : MonoBehaviour {
 	[SerializeField] CollectableType type;
 
 	private static List<CollectableType> collectables; 
 
 	public static List<CollectableType> getCollectables() {
-		if (collectables.Count == 0) {
+		if (collectables == null) {
 			collectables = new List<CollectableType> ();
 			collectables.Add (CollectableType.Lightning);
 			collectables.Add (CollectableType.Health);

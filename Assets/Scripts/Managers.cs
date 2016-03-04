@@ -5,13 +5,16 @@ using System.Collections.Generic;
 
 public class Managers : MonoBehaviour {
 
-	[SerializeField] UIManager uiManager;
-	[SerializeField] InvertoryManager invertoryManager;
+	private static UIManager uiManager;
+	private static InvertoryManager invertoryManager;
 
 	private List<IManager> managers;
 
 	void Start () {
 		managers = new List<IManager> ();
+
+		uiManager = GetComponent<UIManager> ();
+		invertoryManager = GetComponent<InvertoryManager> ();
 
 		managers.Add (uiManager);
 		managers.Add (invertoryManager);
@@ -22,11 +25,11 @@ public class Managers : MonoBehaviour {
 			
 	}
 
-	public UIManager ui() {
+	public static UIManager ui() {
 		return uiManager;
 	}
 
-	public InvertoryManager invertory() {
+	public static InvertoryManager invertory() {
 		return invertoryManager;
 	}
 }
