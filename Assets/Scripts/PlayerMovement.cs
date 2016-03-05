@@ -7,7 +7,6 @@ public class PlayerMovement : MonoBehaviour
 
 	private Rigidbody2D rigidBody;
 
-	public float maxSpeed = 3f;
 	public float jumpForce = 300f;
 	bool facingRight = true;
 	public float groundRadius = 0.2f;
@@ -39,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
 			Debug.Log ("X: " + position.x + " Y: " + position.y + " distance: " + grounded.distance + " name: " + grounded.collider.name + " height: " + height);
 		}
 
-		rigidBody.velocity = new Vector2 (move * maxSpeed, rigidBody.velocity.y);
+		rigidBody.velocity = new Vector2 (move * Managers.player().Speed(), rigidBody.velocity.y);
 
 		if (move > 0 && !facingRight)
 			Flip ();
@@ -53,6 +52,19 @@ public class PlayerMovement : MonoBehaviour
 
 		if (Input.GetKey (KeyCode.R)) {
 			SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
+		}
+
+		// invertory
+		if (Input.GetKeyDown (KeyCode.Alpha1)) {
+			Managers.invertory ().ConsumeItem (CollectableTrigger.CollectableType.Lightning);
+		} else if (Input.GetKeyDown (KeyCode.Alpha2)) {
+			Managers.invertory ().ConsumeItem (CollectableTrigger.CollectableType.Health);
+		} else if (Input.GetKey (KeyCode.Alpha3)) {
+			Managers.invertory ().ConsumeItem (CollectableTrigger.CollectableType.FlashSpeed);
+		} else if (Input.GetKey (KeyCode.Alpha4)) {
+			Managers.invertory ().ConsumeItem (CollectableTrigger.CollectableType.ReverseTime);
+		} else if (Input.GetKey (KeyCode.Alpha5)) {
+			Managers.invertory ().ConsumeItem (CollectableTrigger.CollectableType.RightSpeed);
 		}
 
 

@@ -39,18 +39,25 @@ public class InvertoryManager : MonoBehaviour, IManager {
 		// TODO
 		switch (item) {
 		case CollectableTrigger.CollectableType.FlashSpeed:
+			Managers.player ().SetSpeed (50.0f);
 			break;
 		case CollectableTrigger.CollectableType.Health:
+			// becomes unbeatable
 			break;
 		case CollectableTrigger.CollectableType.Lightning:
+			// becomes unbeatable, applies player electric animation, kills all enemies
 			break;
 		case CollectableTrigger.CollectableType.ReverseTime:
+			// takes user to position where he was ~ 10 seconds ago
 			break;
 		case CollectableTrigger.CollectableType.RightSpeed:
+			Managers.player ().SetSpeed (10.0f);
 			break;
 		}
 
 		items [item] = count - 1;
+
+		DisplayItems ();
 	}
 
 	private void DisplayItems() {
