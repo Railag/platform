@@ -3,7 +3,14 @@ using System.Collections;
 
 public class PlayerManager : MonoBehaviour, IManager {
 
+	[SerializeField] GameObject player;
+
+	private static int reverseTime = 10; 
+
 	public float defaultSpeed = 3.0f;
+
+	private Vector3[] savedPositions = new Vector3[reverseTime];
+	private int timeIndex = 0;
 
 	private float speed;
 	
@@ -12,6 +19,8 @@ public class PlayerManager : MonoBehaviour, IManager {
 	public void initialization ()
 	{
 		SetSpeed (3.0f);
+
+		InvokeRepeating ("savePosition", 0, 1.0f);
 	}
 
 	#endregion
@@ -32,6 +41,27 @@ public class PlayerManager : MonoBehaviour, IManager {
 
 	public float Speed() {
 		return speed;
+	}
+
+	private void savePosition() {
+		savedPositions[timeIndex] = player.transform.position;
+		Debug.Log ("Vector: " + savedPositions [timeIndex] + ", index: " + timeIndex);
+		if (timeIndex != savedPositions.Length - 1)
+			timeIndex++;
+		else
+			timeIndex = 0;
+	}
+
+	public void BackInTime() {
+		// next index
+		int index = timeIndex == savedPositions.Length - 1 ? 0 : timeIndex + 1;
+
+		// less than 10 game seconds passed.
+		if (savedPositions[index] == Vector3.zero) {
+			index = 0;
+		}
+
+		player.transform.position = savedPositions[index];
 	}
 
 }

@@ -49,6 +49,7 @@ public class InvertoryManager : MonoBehaviour, IManager {
 			break;
 		case CollectableTrigger.CollectableType.ReverseTime:
 			// takes user to position where he was ~ 10 seconds ago
+			Managers.player ().BackInTime ();
 			break;
 		case CollectableTrigger.CollectableType.RightSpeed:
 			Managers.player ().SetSpeed (10.0f);

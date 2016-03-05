@@ -25,27 +25,35 @@ public class PlayerMovement : MonoBehaviour
 		height = size.y * scale.y;
 	}
 
-	void Update ()
+	void FixedUpdate ()
 	{
 		Vector2 position = new Vector2 (transform.position.x, transform.position.y - height / 2 - 1f);
 
 		RaycastHit2D grounded = Physics2D.CircleCast (position, groundRadius, Vector2.down, groundDistance);
 
-		move = Input.GetAxis ("Horizontal");
-
 		if (grounded && (Input.GetKeyDown (KeyCode.W) || Input.GetKeyDown (KeyCode.UpArrow))) {
 			rigidBody.AddForce (new Vector2 (0f, jumpForce));
-			Debug.Log ("X: " + position.x + " Y: " + position.y + " distance: " + grounded.distance + " name: " + grounded.collider.name + " height: " + height);
+			//	Debug.Log ("X: " + position.x + " Y: " + position.y + " distance: " + grounded.distance + " name: " + grounded.collider.name + " height: " + height);
 		}
+	}
 
-		rigidBody.velocity = new Vector2 (move * Managers.player().Speed(), rigidBody.velocity.y);
+	void Update ()
+	{
+		move = Input.GetAxis ("Horizontal");
+
+
+		rigidBody.velocity = new Vector2 (move * Managers.player ().Speed (), rigidBody.velocity.y);
 
 		if (move > 0 && !facingRight)
 			Flip ();
 		else if (move < 0 && facingRight)
 			Flip ();
 
+		checkPressedKey ();
+	}
 
+	private void checkPressedKey ()
+	{
 		if (Input.GetKey (KeyCode.Escape)) {
 			Application.Quit ();
 		}
@@ -66,8 +74,6 @@ public class PlayerMovement : MonoBehaviour
 		} else if (Input.GetKey (KeyCode.Alpha5)) {
 			Managers.invertory ().ConsumeItem (CollectableTrigger.CollectableType.RightSpeed);
 		}
-
-
 	}
 
 	void Flip ()
