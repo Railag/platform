@@ -13,7 +13,7 @@ public class CameraMovement : MonoBehaviour {
 		_camera = GetComponent<Camera> ();
 	}
 
-	void Update () 
+	void LateUpdate () 
 	{
 		if (target)
 		{

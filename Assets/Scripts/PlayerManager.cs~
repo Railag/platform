@@ -64,4 +64,15 @@ public class PlayerManager : MonoBehaviour, IManager {
 		player.transform.position = savedPositions[index];
 	}
 
+	public void PushPlayerForward(float power) {
+		StartCoroutine (PushPlayer (20, power / 20));
+	}
+
+	IEnumerator PushPlayer(int times, float power) {
+		for (int i = 0; i < times; i++) {
+			player.GetComponent<Rigidbody2D> ().AddForce (new Vector2 (power, 0f));
+			yield return new WaitForFixedUpdate();
+		}
+	}
+
 }

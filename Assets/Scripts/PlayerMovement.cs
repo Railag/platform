@@ -23,6 +23,8 @@ public class PlayerMovement : MonoBehaviour
 		Vector3 size = GetComponent<Renderer> ().bounds.size;
 		Vector3 scale = transform.localScale;
 		height = size.y * scale.y;
+
+		Managers.invertory ().AddItem (CollectableTrigger.CollectableType.RightSpeed);
 	}
 
 	void FixedUpdate ()

@@ -52,7 +52,7 @@ public class InvertoryManager : MonoBehaviour, IManager {
 			Managers.player ().BackInTime ();
 			break;
 		case CollectableTrigger.CollectableType.RightSpeed:
-			Managers.player ().SetSpeed (10.0f);
+			Managers.player ().PushPlayerForward (20000f);
 			break;
 		}
 
