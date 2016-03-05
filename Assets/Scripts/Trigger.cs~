@@ -10,4 +10,5 @@ public abstract class Trigger : MonoBehaviour {
 			PlayerCollide ();
 		}
 	}
+
 }

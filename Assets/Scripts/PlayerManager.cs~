@@ -91,4 +91,16 @@ public class PlayerManager : MonoBehaviour, IManager
 			Managers.level ().RestartLevel ();
 	}
 
+	public void Steel(int seconds) {
+		unbreakable = true;
+
+		StartCoroutine (Breakable (seconds));
+	}
+
+	IEnumerator Breakable (int seconds)
+	{
+		yield return new WaitForSeconds (seconds);
+
+		unbreakable = false;
+	}
 }

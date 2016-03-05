@@ -27,4 +27,10 @@ public class SawTrigger : Trigger {
 	void Update() {
 		transform.Rotate (0f, 0f, -3f);
 	}
+
+	void OnTriggerStay2D (Collider2D collider) {
+		if (collider.GetComponent<PlayerMovement>() != null) {
+			PlayerCollide ();
+		}
+	}
 }
