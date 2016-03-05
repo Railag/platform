@@ -61,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
 		}
 
 		if (Input.GetKey (KeyCode.R)) {
-			SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
+			
 		}
 
 		// invertory

@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class CollectableTrigger : MonoBehaviour {
+public class CollectableTrigger : Trigger {
 	[SerializeField] CollectableType type;
 
 	private static List<CollectableType> collectables; 
@@ -29,13 +29,12 @@ public class CollectableTrigger : MonoBehaviour {
 		RightSpeed
 	}
 
-	void OnTriggerEnter2D (Collider2D collider) {
-		if (collider.GetComponent<PlayerMovement>() != null) {
-			CollectItem ();
-			Destroy (gameObject);
-		}
+	override
+	public void PlayerCollide() {
+		CollectItem ();
+		Destroy (gameObject);
 	}
-
+		
 	private void CollectItem() {
 		Managers.invertory ().AddItem (type);
 	}

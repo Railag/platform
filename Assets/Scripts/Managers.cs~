@@ -8,6 +8,7 @@ public class Managers : MonoBehaviour {
 	private static UIManager uiManager;
 	private static InvertoryManager invertoryManager;
 	private static PlayerManager playerManager;
+	private static LevelManager levelManager;
 
 	private List<IManager> managers;
 
@@ -17,10 +18,12 @@ public class Managers : MonoBehaviour {
 		uiManager = GetComponent<UIManager> ();
 		invertoryManager = GetComponent<InvertoryManager> ();
 		playerManager = GetComponent<PlayerManager> ();
+		levelManager = GetComponent<LevelManager> ();
 
 		managers.Add (uiManager);
 		managers.Add (invertoryManager);
 		managers.Add (playerManager);
+		managers.Add (levelManager);
 
 		foreach(IManager manager in managers) {
 			manager.initialization ();
@@ -38,5 +41,9 @@ public class Managers : MonoBehaviour {
 
 	public static PlayerManager player() {
 		return playerManager;
+	}
+
+	public static LevelManager level() {
+		return levelManager;
 	}
 }
