@@ -17,6 +17,8 @@ public class PlayerManager : MonoBehaviour, IManager
 
 	private bool unbreakable = false;
 
+	private bool electric = false;
+
 	#region IManager implementation
 
 	public void initialization ()
@@ -85,10 +87,12 @@ public class PlayerManager : MonoBehaviour, IManager
 		}
 	}
 
-	public void HitPlayer ()
+	public bool HitPlayer ()
 	{
 		if (!unbreakable)
 			Managers.level ().RestartLevel ();
+
+		return electric;
 	}
 
 	public void Steel(int seconds) {
@@ -102,5 +106,17 @@ public class PlayerManager : MonoBehaviour, IManager
 		yield return new WaitForSeconds (seconds);
 
 		unbreakable = false;
+	}
+
+	public void Lightning(int seconds) {
+		electric = true;
+
+		StartCoroutine (Deelectric (seconds));
+	}
+
+	IEnumerator Deelectric(int seconds) {
+		yield return new WaitForSeconds (seconds);
+
+		electric = false;
 	}
 }
