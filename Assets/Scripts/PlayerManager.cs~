@@ -98,6 +98,8 @@ public class PlayerManager : MonoBehaviour, IManager
 	public void Steel(int seconds) {
 		unbreakable = true;
 
+		player.GetComponent<PlayerAttributes> ().HealthEffect ();
+
 		StartCoroutine (Breakable (seconds));
 	}
 
