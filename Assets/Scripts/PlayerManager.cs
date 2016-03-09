@@ -71,7 +71,9 @@ public class PlayerManager : MonoBehaviour, IManager
 			index = 0;
 		}
 
-		player.transform.position = savedPositions [index];
+		Steel (2);
+		iTween.MoveTo (player, savedPositions[index], 2f);
+		//player.transform.position = savedPositions [index];
 	}
 
 	public void PushPlayerForward (float power)
@@ -98,7 +100,13 @@ public class PlayerManager : MonoBehaviour, IManager
 	public void Steel(int seconds) {
 		unbreakable = true;
 
-		player.GetComponent<PlayerAttributes> ().HealthEffect ();
+		HealthEffect ();
+
+		StartCoroutine (Breakable (seconds));
+	}
+
+	public void SteelWithNoEffect(int seconds) {
+		unbreakable = true;
 
 		StartCoroutine (Breakable (seconds));
 	}
@@ -113,7 +121,7 @@ public class PlayerManager : MonoBehaviour, IManager
 	public void Lightning(int seconds) {
 		electric = true;
 
-		player.GetComponent<PlayerAttributes> ().LightningEffect ();
+		LightningEffect ();
 
 		StartCoroutine (Deelectric (seconds));
 	}
@@ -122,5 +130,17 @@ public class PlayerManager : MonoBehaviour, IManager
 		yield return new WaitForSeconds (seconds);
 
 		electric = false;
+	}
+
+	public void HidePlayer(float seconds) {
+		iTween.FadeTo (player, 0f, seconds);
+	}
+
+	public void LightningEffect() {
+		player.GetComponent<PlayerAttributes> ().LightningEffect ();
+	}
+
+	public void HealthEffect() {
+		player.GetComponent<PlayerAttributes> ().HealthEffect ();
 	}
 }

@@ -47,7 +47,7 @@ public class InvertoryManager : MonoBehaviour, IManager {
 			break;
 		case CollectableTrigger.CollectableType.Lightning:
 			// becomes unbeatable, applies player electric animation, kills all enemies
-			Managers.player ().Steel (7);
+			Managers.player ().SteelWithNoEffect (7);
 			Managers.player ().Lightning (7);
 			break;
 		case CollectableTrigger.CollectableType.ReverseTime:

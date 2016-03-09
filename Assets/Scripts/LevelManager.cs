@@ -14,6 +14,12 @@ public class LevelManager : MonoBehaviour, IManager {
 	#endregion
 
 	public void RestartLevel() {
+		StartCoroutine (ReloadLevel());
+	}
+
+	IEnumerator ReloadLevel() {
+		Managers.player ().HidePlayer (1f);
+		yield return new WaitForSeconds (1);
 		SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
 	}
 

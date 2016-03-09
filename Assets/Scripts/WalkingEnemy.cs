@@ -6,6 +6,10 @@ public class WalkingEnemy : MonoBehaviour {
 	[SerializeField]
 	private float speed = 3000f;
 
+	[SerializeField] private GameObject lightningPrefab;
+
+	private GameObject lightningInstance;
+
 	private float direction = 1f;
 
 	private Rigidbody2D rigidBody;
@@ -26,8 +30,25 @@ public class WalkingEnemy : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D collision) {
 		if (collision.gameObject.GetComponent<PlayerMovement> ()) {
 			bool reflect = Managers.player ().HitPlayer ();
-			if (reflect)
-				Destroy (gameObject);
+			if (reflect && lightningInstance == null) {
+				ContactPoint2D contact = collision.contacts[0];
+				Vector2 orthogonalVector = contact.point;
+				float collisionAngle = Vector3.Angle (orthogonalVector, collision.rigidbody.velocity);
+				Quaternion rotation = Quaternion.Euler (collisionAngle, -90f, 90f);
+				Vector3 position = (collision.transform.position + transform.position) * 0.5f;
+				lightningInstance = Instantiate (lightningPrefab, position, rotation) as GameObject;
+				StartCoroutine (Death (0.3f));
+			}
 		}
+	}
+
+	IEnumerator Death(float seconds) {
+
+		iTween.FadeTo (gameObject, 0f, seconds);
+
+		yield return new WaitForSeconds(seconds);
+
+		Destroy (gameObject);
+		Destroy (lightningInstance);
 	}
 }
