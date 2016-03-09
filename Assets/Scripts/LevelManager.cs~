@@ -23,4 +23,9 @@ public class LevelManager : MonoBehaviour, IManager {
 		SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
 	}
 
+	public void NextLevel ()
+	{
+		// TODO
+		RestartLevel();
+	}
 }

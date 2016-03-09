@@ -36,10 +36,9 @@ public class InvertoryManager : MonoBehaviour, IManager {
 			return;
 		}
 
-		// TODO
 		switch (item) {
 		case CollectableTrigger.CollectableType.FlashSpeed:
-			Managers.player ().SetSpeed (50.0f);
+			Managers.player ().SetSpeed (10.0f);
 			break;
 		case CollectableTrigger.CollectableType.Health:
 			// becomes unbeatable
