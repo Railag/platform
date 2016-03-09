@@ -71,7 +71,7 @@ public class PlayerManager : MonoBehaviour, IManager
 			index = 0;
 		}
 
-		Steel (2);
+		SteelWithNoEffect (2);
 		iTween.MoveTo (player, savedPositions[index], 2f);
 		//player.transform.position = savedPositions [index];
 	}
