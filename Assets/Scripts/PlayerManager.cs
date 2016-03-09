@@ -111,6 +111,8 @@ public class PlayerManager : MonoBehaviour, IManager
 	public void Lightning(int seconds) {
 		electric = true;
 
+		player.GetComponent<PlayerAttributes> ().LightningEffect ();
+
 		StartCoroutine (Deelectric (seconds));
 	}
 

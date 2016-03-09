@@ -25,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
 		height = size.y * scale.y;
 
 		Managers.invertory ().AddItem (CollectableTrigger.CollectableType.RightSpeed);
+		Managers.invertory ().AddItem (CollectableTrigger.CollectableType.Lightning);
 	}
 
 	void FixedUpdate ()
