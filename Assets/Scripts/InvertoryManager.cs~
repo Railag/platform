@@ -67,4 +67,12 @@ public class InvertoryManager : MonoBehaviour, IManager {
 		Managers.ui().DisplayItems (items);
 	}
 
+	public Dictionary<CollectableTrigger.CollectableType, float> GetItems() {
+		return items;
+	}
+
+	public void SetItems(Dictionary<CollectableTrigger.CollectableType, float> items) {
+		this.items = items;
+	}
+
 }

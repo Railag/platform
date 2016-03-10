@@ -53,6 +53,9 @@ public class PlayerManager : MonoBehaviour, IManager
 
 	private void savePosition ()
 	{
+		if (!hasPlayer())
+			return;
+		
 		savedPositions [timeIndex] = player.transform.position;
 		Debug.Log ("Vector: " + savedPositions [timeIndex] + ", index: " + timeIndex);
 		if (timeIndex != savedPositions.Length - 1)
@@ -142,5 +145,15 @@ public class PlayerManager : MonoBehaviour, IManager
 
 	public void HealthEffect() {
 		player.GetComponent<PlayerAttributes> ().HealthEffect ();
+	}
+
+	public void InitPlayer (GameObject player)
+	{
+		this.player = player;
+	}
+
+	public bool hasPlayer ()
+	{
+		return player != null;
 	}
 }

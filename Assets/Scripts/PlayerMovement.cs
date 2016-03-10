@@ -18,6 +18,8 @@ public class PlayerMovement : MonoBehaviour
 
 	void Start ()
 	{
+		Managers.player ().InitPlayer (gameObject);
+
 		rigidBody = GetComponent<Rigidbody2D> ();
 
 		Vector3 size = GetComponent<Renderer> ().bounds.size;
