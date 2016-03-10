@@ -59,13 +59,6 @@ public class PlayerMovement : MonoBehaviour
 
 	private void checkPressedKey ()
 	{
-		if (Input.GetKey (KeyCode.Escape)) {
-			Application.Quit ();
-		}
-
-		if (Input.GetKey (KeyCode.R)) {
-			
-		}
 
 		// invertory
 		if (Input.GetKeyDown (KeyCode.Alpha1)) {

@@ -33,6 +33,7 @@ public class DataManager : MonoBehaviour, IManager {
 		if (!File.Exists (_filename)) {
 			Debug.Log ("No saved game");
 			Managers.level ().SetLevel (1);
+			Managers.invertory ().ResetItems ();
 			return;
 		}
 
@@ -45,5 +46,11 @@ public class DataManager : MonoBehaviour, IManager {
 
 		Managers.invertory().SetItems ((Dictionary<CollectableTrigger.CollectableType, float>)gamestate [INVERTORY]);
 		Managers.level().SetLevel((int)gamestate[CURRENT_LEVEL]);
+	}
+
+	public void ResetGameState() {
+		File.Delete (_filename);
+		Managers.level ().SetLevel (1);
+		Managers.invertory ().ResetItems ();
 	}
 }

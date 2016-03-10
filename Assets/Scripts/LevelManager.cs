@@ -11,6 +11,8 @@ public class LevelManager : MonoBehaviour, IManager
 
 	private bool isLoading = false;
 
+	private AsyncOperation loadingOperation;
+
 	#region IManager implementation
 
 	public void initialization ()
@@ -20,9 +22,18 @@ public class LevelManager : MonoBehaviour, IManager
 
 	#endregion
 
+	public void Update() {
+		if (isLoading || loadingOperation != null && !loadingOperation.isDone) {
+			//float progress = loadingOperation.progress; 
+			Managers.ui ().DisplayLoading ();
+		} else {
+			Managers.ui ().StopLoading ();
+		}
+	}
+		
 	public void RestartLevel ()
 	{
-		if (isLoading)
+		if (isLoading || loadingOperation != null && !loadingOperation.isDone)
 			return;
 
 		isLoading = true;
@@ -35,14 +46,14 @@ public class LevelManager : MonoBehaviour, IManager
 		if (Managers.player ().hasPlayer ())
 			Managers.player ().HidePlayer (1f);
 		yield return new WaitForSeconds (1);
-		SceneManager.LoadScene ("level " + _currentLevel);
+		loadingOperation = SceneManager.LoadSceneAsync ("level " + _currentLevel);
 		Managers.data ().LoadGameState ();
 		isLoading = false;
 	}
 
 	public void NextLevel ()
 	{
-		if (isLoading)
+		if (isLoading || loadingOperation != null && !loadingOperation.isDone)
 			return;
 
 		isLoading = true;
@@ -61,7 +72,7 @@ public class LevelManager : MonoBehaviour, IManager
 		if (_currentLevel > MAX_LEVEL)
 			GameFinished ();
 		else
-			SceneManager.LoadScene ("level " + _currentLevel);
+			loadingOperation = SceneManager.LoadSceneAsync ("level " + _currentLevel);
 
 		isLoading = false;
 	}
@@ -72,7 +83,7 @@ public class LevelManager : MonoBehaviour, IManager
 		RestartLevel ();
 	}
 
-	public float GetLevel ()
+	public int GetLevel ()
 	{
 		return _currentLevel;
 	}

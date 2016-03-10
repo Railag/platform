@@ -10,11 +10,7 @@ public class InvertoryManager : MonoBehaviour, IManager {
 
 	public void initialization ()
 	{
-		items = new Dictionary<CollectableTrigger.CollectableType, float> ();
-		List<CollectableTrigger.CollectableType> types = CollectableTrigger.getCollectables();
-		foreach (CollectableTrigger.CollectableType type in types) {
-			items.Add (type, 0);
-		}
+		ResetItems ();
 	}
 
 	#endregion
@@ -73,6 +69,15 @@ public class InvertoryManager : MonoBehaviour, IManager {
 
 	public void SetItems(Dictionary<CollectableTrigger.CollectableType, float> items) {
 		this.items = items;
+		DisplayItems ();
+	}
+
+	public void ResetItems() {
+		items = new Dictionary<CollectableTrigger.CollectableType, float> ();
+		List<CollectableTrigger.CollectableType> types = CollectableTrigger.getCollectables();
+		foreach (CollectableTrigger.CollectableType type in types) {
+			items.Add (type, 0);
+		}
 	}
 
 }

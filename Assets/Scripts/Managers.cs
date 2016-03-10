@@ -17,6 +17,16 @@ public class Managers : MonoBehaviour {
 		DontDestroyOnLoad (this);
 	}
 
+	void Update() {
+		if (Input.GetKey (KeyCode.Escape)) {
+			Application.Quit ();
+		}
+
+		if (Input.GetKey (KeyCode.M)) {
+			Managers.data ().ResetGameState ();
+		}
+	}
+
 	void Start () {
 		managers = new List<IManager> ();
 
