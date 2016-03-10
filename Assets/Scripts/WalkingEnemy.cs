@@ -6,8 +6,6 @@ public class WalkingEnemy : MonoBehaviour {
 	[SerializeField]
 	private float speed = 3000f;
 
-	[SerializeField] private GameObject lightningPrefab;
-
 	private GameObject lightningInstance;
 
 	private float direction = 1f;
@@ -42,7 +40,7 @@ public class WalkingEnemy : MonoBehaviour {
 				float collisionAngle = Vector3.Angle (collision.transform.position, collision.rigidbody.velocity);
 				Quaternion rotation = Quaternion.Euler (collisionAngle, -90f, 90f);
 				Vector3 position = (collision.transform.position + transform.position) * 0.5f;
-				lightningInstance = Instantiate (lightningPrefab, position, rotation) as GameObject;
+				lightningInstance = Instantiate (Managers.enemy().GetSparkPrefab(), position, rotation) as GameObject;
 				StartCoroutine (Death (0.3f));
 			}
 		}
