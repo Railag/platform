@@ -19,10 +19,12 @@ public class WalkingEnemy : MonoBehaviour {
 	}
 
 	void FixedUpdate () {
+		// count blocked time without velocity
 		if (Mathf.Abs(rigidBody.velocity.x) < 1f) {
 			stoppedCount++;
 		}
 
+		// change direction if no movement (blocked)
 		if (stoppedCount >= 4) {
 			ChangeDirection ();
 			stoppedCount = 0;
