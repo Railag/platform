@@ -36,18 +36,6 @@ public class PlayerMovement : MonoBehaviour
 
 	void FixedUpdate ()
 	{
-		Vector2 position = new Vector2 (transform.position.x, transform.position.y - height / 2 - 1f);
-
-		RaycastHit2D grounded = Physics2D.CircleCast (position, groundRadius, Vector2.down, groundDistance);
-
-		if (grounded && (Input.GetKeyDown (KeyCode.W) || Input.GetKeyDown (KeyCode.UpArrow))) {
-			rigidBody.AddForce (new Vector2 (0f, jumpForce));
-			//	Debug.Log ("X: " + position.x + " Y: " + position.y + " distance: " + grounded.distance + " name: " + grounded.collider.name + " height: " + height);
-		}
-	}
-
-	void Update ()
-	{
 		move = Input.GetAxis ("Horizontal");
 
 
@@ -57,6 +45,15 @@ public class PlayerMovement : MonoBehaviour
 			Flip ();
 		else if (move < 0 && facingRight)
 			Flip ();
+
+		Vector2 position = new Vector2 (transform.position.x, transform.position.y - height / 2 - 1f);
+
+		RaycastHit2D grounded = Physics2D.CircleCast (position, groundRadius, Vector2.down, groundDistance);
+
+		if (grounded && (Input.GetKeyDown (KeyCode.W) || Input.GetKeyDown (KeyCode.UpArrow))) {
+			rigidBody.AddForce (new Vector2 (0f, jumpForce));
+			//	Debug.Log ("X: " + position.x + " Y: " + position.y + " distance: " + grounded.distance + " name: " + grounded.collider.name + " height: " + height);
+		}
 	}
 
 	void LateUpdate() {

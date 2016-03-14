@@ -4,7 +4,7 @@ using System.Collections;
 public class WalkingEnemy : MonoBehaviour {
 
 	[SerializeField]
-	private float speed = 3000f;
+	private float speed = 3f;
 
 	private GameObject lightningInstance;
 
@@ -12,12 +12,23 @@ public class WalkingEnemy : MonoBehaviour {
 
 	private Rigidbody2D rigidBody;
 
+	private int stoppedCount = 0;
+
 	void Start() {
 		rigidBody = GetComponent<Rigidbody2D> ();
 	}
 
-	void Update () {
-		rigidBody.velocity = new Vector2 (speed * direction * Time.deltaTime, rigidBody.velocity.y);
+	void FixedUpdate () {
+		if (Mathf.Abs(rigidBody.velocity.x) < 1f) {
+			stoppedCount++;
+		}
+
+		if (stoppedCount >= 4) {
+			ChangeDirection ();
+			stoppedCount = 0;
+		}
+
+		rigidBody.velocity = new Vector2 (speed * direction, rigidBody.velocity.y);
 		transform.localScale = new Vector3 (-direction, 1, 1);
 	}
 
