@@ -43,7 +43,7 @@ public class LevelManager : MonoBehaviour, IManager
 
 	IEnumerator ReloadLevel ()
 	{
-		if (Managers.player ().hasPlayer ())
+		if (Managers.player ().HasPlayer ())
 			Managers.player ().HidePlayer (1f);
 		yield return new WaitForSeconds (1);
 		loadingOperation = SceneManager.LoadSceneAsync ("level " + _currentLevel);

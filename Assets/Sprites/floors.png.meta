@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 83a0f2b81632dd041b0c2f81dbbc46e9
-timeCreated: 1457693918
+timeCreated: 1457695066
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -60,16 +60,16 @@ TextureImporter:
         serializedVersion: 2
         x: 63
         y: 65
-        width: 257
+        width: 256
         height: 255
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -128.5, y: 127.5}
-        - {x: -128.5, y: -127.5}
-        - {x: 128.5, y: -127.5}
-        - {x: 128.5, y: 127.5}
+      - - {x: -128, y: 127.5}
+        - {x: -128, y: -127.5}
+        - {x: 128, y: -127.5}
+        - {x: 128, y: 127.5}
     - name: floors_1
       rect:
         serializedVersion: 2
@@ -88,18 +88,18 @@ TextureImporter:
     - name: floors_2
       rect:
         serializedVersion: 2
-        x: 383
+        x: 384
         y: 64
-        width: 257
+        width: 256
         height: 256
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -128.5, y: 128}
-        - {x: -128.5, y: -128}
-        - {x: 128.5, y: -128}
-        - {x: 128.5, y: 128}
+      - - {x: -128, y: 128}
+        - {x: -128, y: -128}
+        - {x: 128, y: -128}
+        - {x: 128, y: 128}
     - name: floors_3
       rect:
         serializedVersion: 2
@@ -119,17 +119,17 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 705
-        y: 63
+        y: 64
         width: 382
-        height: 41
+        height: 39
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -191, y: 20.5}
-        - {x: -191, y: -20.5}
-        - {x: 191, y: -20.5}
-        - {x: 191, y: 20.5}
+      - - {x: -191, y: 19.5}
+        - {x: -191, y: -19.5}
+        - {x: 191, y: -19.5}
+        - {x: 191, y: 19.5}
     outline: []
   spritePackingTag: 
   userData: 

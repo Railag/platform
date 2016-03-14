@@ -4,7 +4,8 @@ using System.Collections;
 public class PlayerManager : MonoBehaviour, IManager
 {
 
-	[SerializeField] GameObject player;
+	private GameObject player;
+	private GameObject camera;
 
 	private static int reverseTime = 10;
 
@@ -53,7 +54,7 @@ public class PlayerManager : MonoBehaviour, IManager
 
 	private void savePosition ()
 	{
-		if (!hasPlayer())
+		if (!HasPlayer())
 			return;
 		
 		savedPositions [timeIndex] = player.transform.position;
@@ -76,6 +77,9 @@ public class PlayerManager : MonoBehaviour, IManager
 
 		SteelWithNoEffect (2);
 		iTween.MoveTo (player, savedPositions[index], 2f);
+
+		RotateCamera180 ();
+
 		//player.transform.position = savedPositions [index];
 	}
 
@@ -152,8 +156,21 @@ public class PlayerManager : MonoBehaviour, IManager
 		this.player = player;
 	}
 
-	public bool hasPlayer ()
+	public bool HasPlayer ()
 	{
 		return player != null;
+	}
+
+	public void InitCamera(GameObject camera) {
+		this.camera = camera;
+	}
+
+	public bool HasCamera() {
+		return this.camera != null;
+	}
+
+	public void RotateCamera180() {
+		if (HasCamera ())
+			camera.GetComponent<CameraMovement> ().Rotate180 ();
 	}
 }

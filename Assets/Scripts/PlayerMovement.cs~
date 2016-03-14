@@ -27,7 +27,11 @@ public class PlayerMovement : MonoBehaviour
 		height = size.y * scale.y;
 
 		Managers.invertory ().AddItem (CollectableTrigger.CollectableType.RightSpeed);
+		Managers.invertory ().AddItem (CollectableTrigger.CollectableType.RightSpeed);
+	
 		Managers.invertory ().AddItem (CollectableTrigger.CollectableType.Lightning);
+		Managers.invertory ().AddItem (CollectableTrigger.CollectableType.ReverseTime);
+		Managers.invertory ().AddItem (CollectableTrigger.CollectableType.ReverseTime);
 	}
 
 	void FixedUpdate ()
@@ -53,23 +57,25 @@ public class PlayerMovement : MonoBehaviour
 			Flip ();
 		else if (move < 0 && facingRight)
 			Flip ();
+	}
 
+	void LateUpdate() {
 		checkPressedKey ();
 	}
 
 	private void checkPressedKey ()
 	{
-
+		
 		// invertory
 		if (Input.GetKeyDown (KeyCode.Alpha1)) {
 			Managers.invertory ().ConsumeItem (CollectableTrigger.CollectableType.Lightning);
 		} else if (Input.GetKeyDown (KeyCode.Alpha2)) {
 			Managers.invertory ().ConsumeItem (CollectableTrigger.CollectableType.Health);
-		} else if (Input.GetKey (KeyCode.Alpha3)) {
+		} else if (Input.GetKeyDown (KeyCode.Alpha3)) {
 			Managers.invertory ().ConsumeItem (CollectableTrigger.CollectableType.FlashSpeed);
-		} else if (Input.GetKey (KeyCode.Alpha4)) {
+		} else if (Input.GetKeyDown (KeyCode.Alpha4)) {
 			Managers.invertory ().ConsumeItem (CollectableTrigger.CollectableType.ReverseTime);
-		} else if (Input.GetKey (KeyCode.Alpha5)) {
+		} else if (Input.GetKeyDown (KeyCode.Alpha5)) {
 			Managers.invertory ().ConsumeItem (CollectableTrigger.CollectableType.RightSpeed);
 		}
 	}

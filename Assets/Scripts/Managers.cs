@@ -20,7 +20,7 @@ public class Managers : MonoBehaviour
 		DontDestroyOnLoad (this);
 	}
 
-	void Update ()
+	void LateUpdate ()
 	{
 		if (Input.GetKey (KeyCode.Escape)) {
 			Application.Quit ();
