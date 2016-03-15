@@ -22,12 +22,16 @@ public class Managers : MonoBehaviour
 
 	void LateUpdate ()
 	{
-		if (Input.GetKey (KeyCode.Escape)) {
+		if (Input.GetKeyDown (KeyCode.Escape)) {
 			Application.Quit ();
 		}
 
-		if (Input.GetKey (KeyCode.M)) {
-			Managers.data ().ResetGameState ();
+		if (Input.GetKeyDown (KeyCode.M)) {
+			data ().ResetGameState ();
+		}
+
+		if (Input.GetKeyDown (KeyCode.B)) {
+			level ().NextLevel ();
 		}
 	}
 
