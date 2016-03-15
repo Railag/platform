@@ -10,6 +10,9 @@ public class CameraMovement : MonoBehaviour
 
 	private Camera _camera;
 
+	private bool moving = false;
+	private Vector3 destination = Vector3.zero;
+
 	void Start ()
 	{
 		_camera = GetComponent<Camera> ();
@@ -20,12 +23,14 @@ public class CameraMovement : MonoBehaviour
 	void LateUpdate ()
 	{
 		if (target) {
-			Vector3 targetPosition = new Vector3 (target.position.x, target.position.y + 0.5f, target.position.z);
+			// goes to target or to destination vector if (moving)
+			Vector3 targetPosition = ( moving && !destination.Equals(Vector3.zero) ) ?
+				destination : new Vector3 (target.position.x, target.position.y + 0.5f, target.position.z);
 			Vector3 point = _camera.WorldToViewportPoint (targetPosition);
-			Vector3 delta = targetPosition - _camera.ViewportToWorldPoint (new Vector3 (0.5f, 0.5f, point.z)); //(new Vector3(0.5, 0.5, point.z));
-			Vector3 destination = transform.position + delta;
+			Vector3 delta = targetPosition - _camera.ViewportToWorldPoint (new Vector3 (0.5f, 0.5f, point.z));
+			Vector3 cameraDestination = transform.position + delta;
 
-			transform.position = Vector3.SmoothDamp (transform.position, destination, ref velocity, dampTime);
+			transform.position = Vector3.SmoothDamp (transform.position, cameraDestination, ref velocity, dampTime);
 
 		}
 
@@ -47,5 +52,16 @@ public class CameraMovement : MonoBehaviour
 	public void RotateBackwards180() {
 		iTween.Stop (gameObject);
 		iTween.RotateTo (gameObject, Vector3.zero, 2.0f);
+	}
+
+	public void GoToPosition (Vector3 positionToShow)
+	{
+		moving = true;
+		destination = positionToShow;
+	}
+
+	public void GoBackFromPosition() {
+		moving = false;
+		destination = Vector3.zero;
 	}
 }

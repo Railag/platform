@@ -4,8 +4,8 @@ using System.Collections;
 public class PlayerManager : MonoBehaviour, IManager
 {
 
-	private GameObject player;
-	private GameObject camera;
+	private GameObject _player;
+	private GameObject _camera;
 
 	private static int reverseTime = 10;
 
@@ -57,7 +57,7 @@ public class PlayerManager : MonoBehaviour, IManager
 		if (!HasPlayer())
 			return;
 		
-		savedPositions [timeIndex] = player.transform.position;
+		savedPositions [timeIndex] = _player.transform.position;
 		Debug.Log ("Vector: " + savedPositions [timeIndex] + ", index: " + timeIndex);
 		if (timeIndex != savedPositions.Length - 1)
 			timeIndex++;
@@ -76,7 +76,7 @@ public class PlayerManager : MonoBehaviour, IManager
 		}
 
 		SteelWithNoEffect (2);
-		iTween.MoveTo (player, savedPositions[index], 2f);
+		iTween.MoveTo (_player, savedPositions[index], 2f);
 
 		RotateCamera180 ();
 
@@ -91,7 +91,7 @@ public class PlayerManager : MonoBehaviour, IManager
 	IEnumerator PushPlayer (int times, float power)
 	{
 		for (int i = 0; i < times; i++) {
-			player.GetComponent<Rigidbody2D> ().AddForce (new Vector2 (power, 0f));
+			_player.GetComponent<Rigidbody2D> ().AddForce (new Vector2 (power, 0f));
 			yield return new WaitForFixedUpdate ();
 		}
 	}
@@ -140,37 +140,67 @@ public class PlayerManager : MonoBehaviour, IManager
 	}
 
 	public void HidePlayer(float seconds) {
-		iTween.FadeTo (player, 0f, seconds);
+		iTween.FadeTo (_player, 0f, seconds);
 	}
 
 	public void LightningEffect() {
-		player.GetComponent<PlayerAttributes> ().LightningEffect ();
+		_player.GetComponent<PlayerAttributes> ().LightningEffect ();
 	}
 
 	public void HealthEffect() {
-		player.GetComponent<PlayerAttributes> ().HealthEffect ();
+		_player.GetComponent<PlayerAttributes> ().HealthEffect ();
 	}
 
 	public void InitPlayer (GameObject player)
 	{
-		this.player = player;
+		this._player = player;
 	}
 
 	public bool HasPlayer ()
 	{
-		return player != null;
+		return _player != null;
 	}
 
 	public void InitCamera(GameObject camera) {
-		this.camera = camera;
+		this._camera = camera;
 	}
 
 	public bool HasCamera() {
-		return this.camera != null;
+		return this._camera != null;
 	}
 
 	public void RotateCamera180() {
 		if (HasCamera ())
-			camera.GetComponent<CameraMovement> ().Rotate180 ();
+			_camera.GetComponent<CameraMovement> ().Rotate180 ();
+	}
+
+	public void IntroCamera(Vector3 positionToShow) {
+		Vector3 oldPosition = _camera.transform.position;
+		_camera.GetComponent<CameraMovement> ().GoToPosition (positionToShow);
+		StartCoroutine (PauseMovement (oldPosition));
+	}
+
+	IEnumerator PauseMovement(Vector3 oldPosition) {
+		//Backup and clear velocities
+		Rigidbody2D rigidBody = _player.GetComponent<Rigidbody2D>();
+		Vector2 linearBackup = rigidBody.velocity;
+		float angularBackup = rigidBody.angularVelocity;
+		rigidBody.velocity = Vector2.zero;
+		rigidBody.angularVelocity = 0f;
+
+		//Finally freeze the body in place so forces like gravity or movement won't affect it
+		rigidBody.constraints = RigidbodyConstraints2D.FreezeAll;
+
+		yield return new WaitForSeconds (1f);
+
+		_camera.GetComponent<CameraMovement> ().GoBackFromPosition ();
+
+		yield return new WaitForSeconds(1f);
+		//And unfreeze before restoring velocities
+		rigidBody.constraints = RigidbodyConstraints2D.None;
+		//restore the velocities
+		rigidBody.velocity = linearBackup;
+		rigidBody.angularVelocity = angularBackup;
+
 	}
 }

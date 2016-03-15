@@ -42,14 +42,6 @@ public class WalkingEnemy : MonoBehaviour {
 		if (collision.gameObject.GetComponent<PlayerMovement> ()) {
 			bool reflect = Managers.player ().HitPlayer ();
 			if (reflect && lightningInstance == null) {
-				int contactsCount = collision.contacts.Length;
-
-				ContactPoint2D contact;
-				if (contactsCount > 1)
-					contact = collision.contacts[contactsCount / 2];
-				else
-					contact = collision.contacts[0];
-				Vector2 orthogonalVector = contact.point;
 				float collisionAngle = Vector3.Angle (collision.transform.position, collision.rigidbody.velocity);
 				Quaternion rotation = Quaternion.Euler (collisionAngle, -90f, 90f);
 				Vector3 position = (collision.transform.position + transform.position) * 0.5f;
