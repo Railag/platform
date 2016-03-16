@@ -203,4 +203,10 @@ public class PlayerManager : MonoBehaviour, IManager
 		rigidBody.angularVelocity = angularBackup;
 
 	}
+
+	public void TeleportTo (Vector3 position)
+	{
+		SteelWithNoEffect (2);
+		iTween.MoveTo (_player, position, 2f);
+	}
 }
