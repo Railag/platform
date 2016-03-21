@@ -9,7 +9,6 @@ public class GroundMovingTrigger : Trigger
 	[SerializeField] float seconds = 3.0f;
 	[SerializeField] float distance = 5.0f;
 	[SerializeField] Sprite activeSprite;
-
 	private Sprite inactiveSprite;
 
 	private bool active = false;

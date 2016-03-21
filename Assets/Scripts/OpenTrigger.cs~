@@ -2,7 +2,8 @@
 using System.Collections;
 
 public class OpenTrigger : Trigger {
-	[SerializeField] private GameObject _objectToHide;
+	[SerializeField] GameObject _objectToHide;
+	[SerializeField] bool triggersOnce = true;
 
 	private bool hidden = false;
 
@@ -44,6 +45,7 @@ public class OpenTrigger : Trigger {
 	IEnumerator Unlock(float seconds) {
 		yield return new WaitForSeconds (seconds);
 
-		locked = false;
+		if (!triggersOnce) 
+			locked = false;
 	}
 }
