@@ -13,11 +13,16 @@ public class CameraMovement : MonoBehaviour
 	private bool moving = false;
 	private Vector3 destination = Vector3.zero;
 
+	[SerializeField] bool shouldBeInversed = false;
+
 	void Start ()
 	{
 		_camera = GetComponent<Camera> ();
 
 		Managers.player ().InitCamera (gameObject);
+
+		if (shouldBeInversed)
+			Managers.player ().RotateCamera180 ();
 	}
 
 	void LateUpdate ()

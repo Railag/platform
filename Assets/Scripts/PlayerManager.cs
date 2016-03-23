@@ -77,10 +77,6 @@ public class PlayerManager : MonoBehaviour, IManager
 
 		SteelWithNoEffect (2);
 		iTween.MoveTo (_player, savedPositions[index], 2f);
-
-		RotateCamera180 ();
-
-		//player.transform.position = savedPositions [index];
 	}
 
 	public void PushPlayerForward (float power)
