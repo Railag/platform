@@ -94,8 +94,9 @@ public class PlayerManager : MonoBehaviour, IManager
 
 	public bool HitPlayer ()
 	{
-		if (!unbreakable)
+		if (!unbreakable) {
 			Managers.level ().RestartLevel ();
+		}
 
 		return electric;
 	}

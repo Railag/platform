@@ -43,8 +43,10 @@ public class LevelManager : MonoBehaviour, IManager
 
 	IEnumerator ReloadLevel ()
 	{
-		if (Managers.player ().HasPlayer ())
+		if (Managers.player ().HasPlayer ()) {
 			Managers.player ().HidePlayer (1f);
+			Managers.ui ().DisplayDialog ("ha ha", 1.5f);
+		}
 		yield return new WaitForSeconds (1);
 		loadingOperation = SceneManager.LoadSceneAsync ("level " + _currentLevel);
 		Managers.data ().LoadGameState ();
