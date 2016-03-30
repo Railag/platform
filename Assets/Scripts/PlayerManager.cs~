@@ -58,7 +58,7 @@ public class PlayerManager : MonoBehaviour, IManager
 			return;
 		
 		savedPositions [timeIndex] = _player.transform.position;
-		Debug.Log ("Vector: " + savedPositions [timeIndex] + ", index: " + timeIndex);
+//		Debug.Log ("Vector: " + savedPositions [timeIndex] + ", index: " + timeIndex);
 		if (timeIndex != savedPositions.Length - 1)
 			timeIndex++;
 		else

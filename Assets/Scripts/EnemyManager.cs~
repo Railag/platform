@@ -4,6 +4,7 @@ using System.Collections;
 public class EnemyManager : MonoBehaviour, IManager
 {
 	[SerializeField] private GameObject sparkPrefab;
+	[SerializeField] private GameObject bulletPrefab;
 
 	#region IManager implementation
 
@@ -17,5 +18,10 @@ public class EnemyManager : MonoBehaviour, IManager
 	public GameObject GetSparkPrefab ()
 	{
 		return sparkPrefab;
+	}
+
+	public GameObject GetBulletPrefab()
+	{
+		return bulletPrefab;
 	}
 }
