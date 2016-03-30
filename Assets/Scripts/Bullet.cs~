@@ -11,7 +11,7 @@ public class Bullet : MonoBehaviour
 
 	void Start ()
 	{
-		Invoke ("DestroyBullet", 10f);
+		Invoke ("DestroyBullet", 5f);
 		rigidBody = GetComponent<Rigidbody2D> ();
 	}
 
@@ -25,11 +25,6 @@ public class Bullet : MonoBehaviour
 		if (coll.gameObject.GetComponent<PlayerMovement> () != null) {
 			Managers.player ().HitPlayer ();
 			Destroy (gameObject);
-			return;
-		}
-			
-		if (coll.gameObject.GetComponent<Enemy> () != null) { 
-			// ignore 
 			return;
 		}
 			

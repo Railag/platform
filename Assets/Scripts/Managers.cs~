@@ -18,6 +18,8 @@ public class Managers : MonoBehaviour
 	public void Awake ()
 	{
 		DontDestroyOnLoad (this);
+
+		Physics2D.IgnoreLayerCollision (8, 8);
 	}
 
 	void LateUpdate ()
