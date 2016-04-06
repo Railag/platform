@@ -37,7 +37,7 @@ public abstract class Enemy : MonoBehaviour {
 
 		if (randomDirectionChange && !randomDirectionLock) {
 			float directionChangeRandom = Random.value;
-			Debug.Log (directionChangeRandom);
+		//	Debug.Log (directionChangeRandom);
 			if (directionChangeRandom > 0.99f) {
 				ChangeDirection ();
 				randomDirectionLock = true;

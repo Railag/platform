@@ -8,7 +8,6 @@ public class UIManager : MonoBehaviour, IManager
 
 	[SerializeField] Text[] fields;
 
-	[SerializeField] Slider progressBar;
 	[SerializeField] Text progressText;
 
 	[SerializeField] GameObject dialogPanel;
@@ -35,19 +34,12 @@ public class UIManager : MonoBehaviour, IManager
 
 	public void DisplayLoading ()
 	{
-		//	if (!progressBar.gameObject.activeSelf)
-		//		progressBar.gameObject.SetActive(true);
-
-		//	progressBar.value = progress;
-
 		if (!progressText.gameObject.activeSelf)
 			progressText.gameObject.SetActive (true);
 	}
 
 	public void StopLoading ()
 	{
-		//progressBar.value = 0f;
-		progressBar.gameObject.SetActive (false);
 		progressText.gameObject.SetActive (false);
 	}
 

@@ -60,6 +60,20 @@ public class LevelManager : MonoBehaviour, IManager
 
 		isLoading = true;
 
+		_currentLevel++;
+
+		StartCoroutine (LoadNextLevel ());
+	}
+
+	public void PrevLevel ()
+	{
+		if (isLoading || loadingOperation != null && !loadingOperation.isDone)
+			return;
+
+		isLoading = true;
+
+		_currentLevel--;
+
 		StartCoroutine (LoadNextLevel ());
 	}
 
@@ -67,11 +81,9 @@ public class LevelManager : MonoBehaviour, IManager
 	{
 		yield return new WaitForSeconds (1);
 
-		_currentLevel++;
-
 		Managers.data ().SaveGameState ();
 
-		if (_currentLevel > MAX_LEVEL)
+		if (_currentLevel > MAX_LEVEL || _currentLevel < 1)
 			GameFinished ();
 		else
 			loadingOperation = SceneManager.LoadSceneAsync ("level " + _currentLevel);

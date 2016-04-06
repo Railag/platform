@@ -2,10 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class InvertoryManager : MonoBehaviour, IManager {
+public class InvertoryManager : MonoBehaviour, IManager
+{
 
 	private Dictionary<CollectableTrigger.CollectableType, float> items;
-	
+
 	#region IManager implementation
 
 	public void initialization ()
@@ -15,8 +16,32 @@ public class InvertoryManager : MonoBehaviour, IManager {
 
 	#endregion
 
-	public void AddItem(CollectableTrigger.CollectableType item) {
-		if (items.ContainsKey(item) ) {
+
+	void LateUpdate ()
+	{
+		checkPressedKey ();
+	}
+
+	private void checkPressedKey ()
+	{
+
+		// invertory
+		if (Input.GetKeyDown (KeyCode.Alpha1)) {
+			ConsumeItem (CollectableTrigger.CollectableType.Lightning);
+		} else if (Input.GetKeyDown (KeyCode.Alpha2)) {
+			ConsumeItem (CollectableTrigger.CollectableType.Health);
+		} else if (Input.GetKeyDown (KeyCode.Alpha3)) {
+			ConsumeItem (CollectableTrigger.CollectableType.FlashSpeed);
+		} else if (Input.GetKeyDown (KeyCode.Alpha4)) {
+			ConsumeItem (CollectableTrigger.CollectableType.ReverseTime);
+		} else if (Input.GetKeyDown (KeyCode.Alpha5)) {
+			ConsumeItem (CollectableTrigger.CollectableType.RightSpeed);
+		}
+	}
+
+	public void AddItem (CollectableTrigger.CollectableType item)
+	{
+		if (items.ContainsKey (item)) {
 			items [item]++;
 		} else {
 			items.Add (item, 1);
@@ -25,7 +50,9 @@ public class InvertoryManager : MonoBehaviour, IManager {
 		DisplayItems ();
 	}
 
-	public void ConsumeItem(CollectableTrigger.CollectableType item) {
+
+	public void ConsumeItem (CollectableTrigger.CollectableType item)
+	{
 		float count = items [item];
 
 		if (count == 0) {
@@ -38,7 +65,7 @@ public class InvertoryManager : MonoBehaviour, IManager {
 			break;
 		case CollectableTrigger.CollectableType.Health:
 			// becomes unbeatable
-			Managers.player().Steel(10);
+			Managers.player ().Steel (10);
 			break;
 		case CollectableTrigger.CollectableType.Lightning:
 			// becomes unbeatable, applies player electric animation, kills all enemies
@@ -59,22 +86,26 @@ public class InvertoryManager : MonoBehaviour, IManager {
 		DisplayItems ();
 	}
 
-	private void DisplayItems() {
-		Managers.ui().DisplayItems (items);
+	private void DisplayItems ()
+	{
+		Managers.ui ().DisplayItems (items);
 	}
 
-	public Dictionary<CollectableTrigger.CollectableType, float> GetItems() {
+	public Dictionary<CollectableTrigger.CollectableType, float> GetItems ()
+	{
 		return items;
 	}
 
-	public void SetItems(Dictionary<CollectableTrigger.CollectableType, float> items) {
+	public void SetItems (Dictionary<CollectableTrigger.CollectableType, float> items)
+	{
 		this.items = items;
 		DisplayItems ();
 	}
 
-	public void ResetItems() {
+	public void ResetItems ()
+	{
 		items = new Dictionary<CollectableTrigger.CollectableType, float> ();
-		List<CollectableTrigger.CollectableType> types = CollectableTrigger.getCollectables();
+		List<CollectableTrigger.CollectableType> types = CollectableTrigger.getCollectables ();
 		foreach (CollectableTrigger.CollectableType type in types) {
 			items.Add (type, 0);
 		}

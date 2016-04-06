@@ -35,6 +35,10 @@ public class Managers : MonoBehaviour
 		if (Input.GetKeyDown (KeyCode.B)) {
 			level ().NextLevel ();
 		}
+
+		if (Input.GetKeyDown (KeyCode.V)) {
+			level ().PrevLevel ();
+		}
 	}
 
 	void Start ()
