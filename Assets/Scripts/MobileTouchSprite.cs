@@ -7,15 +7,9 @@ public class MobileTouchSprite : MonoBehaviour
 
 	[SerializeField] CollectableTrigger.CollectableType type = CollectableTrigger.CollectableType.None;
 
-	private Collider2D touchCollider;
 	private float radius = 5.5f;
 
 	private bool locked = false;
-
-	void Start ()
-	{
-		touchCollider = GetComponent<Collider2D> ();
-	}
 
 	void LateUpdate ()
 	{

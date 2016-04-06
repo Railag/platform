@@ -12,8 +12,6 @@ public class PlayerMovement : MonoBehaviour
 	public float groundRadius = 0.2f;
 	public float groundDistance = 0.5f;
 
-	private Vector2 startTouch = -Vector2.one;
-
 	private float height;
 
 	public float move;
@@ -54,7 +52,6 @@ public class PlayerMovement : MonoBehaviour
 		#else
 		if (Input.touchCount > 0) {
 			foreach (Touch touch in Input.touches) {
-				//Touch touch = Input.GetTouch (0);
 
 				if (touch.phase == TouchPhase.Began) {
 					activeTouches++;
@@ -76,29 +73,11 @@ public class PlayerMovement : MonoBehaviour
 						}
 					}
 
-					//startTouch = touch.position;
 				} else if (touch.phase == TouchPhase.Ended) {
 					activeTouches--;
 					if (activeTouches == 0)
 						state = TouchState.NONE;
-					//				Vector2 endTouch = touch.position;
-					//				float xDiff = endTouch.x - startTouch.x;
-					//				float yDiff = endTouch.y - startTouch.y;
-					//				startTouch.x = -1;
-					//
-					//				if (xDiff < -10f)
-					//					move = -1f;
-					//				else
-					//					move = xDiff;
-					//				
-					//				if (move > 1f)
-					//					move = 1f;
-					//				
-					//				if (yDiff > 10f) {
-					//					vertical = true;
-					//				}
-					//				if (move > 0f)
-					//					Debug.Log("Start touch: " + xDiff + "  | End touch: " + endTouch + "  | Move: " + move);
+					
 				} else if (touch.phase == TouchPhase.Stationary) { // user pressed jump and then tapped left/right, only pressed jump left
 					if (Input.touchCount == 1) {
 						Vector2 viewportPosition = Camera.main.WorldToViewportPoint (touch.position);
