@@ -23,7 +23,7 @@ public class DataManager : MonoBehaviour, IManager {
 		gamestate.Add (INVERTORY, Managers.invertory ().GetItems ());
 		gamestate.Add (CURRENT_LEVEL, Managers.level().GetLevel());
 
-		FileStream stream = File.Create (_filename);
+		FileStream stream = File.Create (Application.persistentDataPath + "/" + _filename);
 		BinaryFormatter formatter = new BinaryFormatter ();
 		formatter.Serialize (stream, gamestate);
 		stream.Close ();
@@ -40,7 +40,7 @@ public class DataManager : MonoBehaviour, IManager {
 		Dictionary<object, object> gamestate;
 
 		BinaryFormatter formatter = new BinaryFormatter ();
-		FileStream stream = File.Open (_filename, FileMode.Open);
+		FileStream stream = File.Open (Application.persistentDataPath + "/" + _filename, FileMode.Open);
 		gamestate = formatter.Deserialize (stream) as Dictionary<object, object>;
 		stream.Close ();
 
