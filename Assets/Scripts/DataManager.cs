@@ -30,7 +30,7 @@ public class DataManager : MonoBehaviour, IManager {
 	}
 
 	public void LoadGameState() {
-		if (!File.Exists (_filename)) {
+		if (!File.Exists (Application.persistentDataPath + "/" + _filename)) {
 			Debug.Log ("No saved game");
 			Managers.level ().SetLevel (1);
 			Managers.invertory ().ResetItems ();
