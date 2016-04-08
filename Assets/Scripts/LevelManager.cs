@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour, IManager
 {
 
-	const int MAX_LEVEL = 12;
+	const int MAX_LEVEL = 13;
 
 	private int _currentLevel;
 
